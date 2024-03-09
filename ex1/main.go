@@ -17,7 +17,7 @@ type Problem struct {
 }
 
 func main() {
-	csvFileName := flag.String("file", "test.csv", "a file in csv format")
+	csvFileName := flag.String("file", "ex1/test.csv", "a file in csv format")
 	timeLimit := flag.Int("limit", 10, "the time limit for the quiz in seconds")
 	flag.Parse()
 

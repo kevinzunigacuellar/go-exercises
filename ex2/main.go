@@ -18,8 +18,8 @@ func main() {
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", HomeHandler(pathToUrl))
-	err := http.ListenAndServe(defaultPort, MapHandler(pathToUrl, mux))
-	if err != nil {
+	fmt.Printf("Server is running on port %s\n", defaultPort)
+	if err := http.ListenAndServe(defaultPort, MapHandler(pathToUrl, mux)); err != nil {
 		log.Fatalf("Server failed to start: %v", err)
 	}
 }
