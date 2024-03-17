@@ -14,6 +14,7 @@ func main() {
 		panic(err)
 	}
 
+	fmt.Println("Reading a large file with 100 bytes buffer:")
 	// read file content
 	buf := make([]byte, 100)
 	for {
@@ -32,8 +33,5 @@ func main() {
 		// Print the read bytes as string
 		fmt.Print(string(buf[:n]))
 	}
-
-	// print file content
-	fmt.Println("Buffer size", len(buf))
 
 }
