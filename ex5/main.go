@@ -1,44 +1,42 @@
 package main
 
 import (
+	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"os"
 )
 
 func main() {
 	client := &http.Client{}
+	url := "https://example.com/"
 
-	req, err := http.NewRequest("GET", "https://example.com/", nil)
+	req, err := http.NewRequest("GET", url, nil)
 
 	if err != nil {
-		panic(err)
+		log.Fatalf("Failed to create a request: %s", err)
 	}
 
+	fmt.Println("Sending a request to:", url)
 	resp, err := client.Do(req)
 
 	if err != nil {
-		panic(err)
+		log.Fatalf("Failed to get a response: %s", err)
 	}
 
 	defer resp.Body.Close()
-
-	// bodyBytes, err := io.ReadAll(resp.Body)
-
-	if err != nil {
-		panic(err)
-	}
-
-	flags := os.O_CREATE | os.O_WRONLY
-	f, err := os.OpenFile("ex5/response.txt", flags, 0644)
+	f, err := os.Create("ex5/example.html")
 
 	if err != nil {
-		panic(err)
+		log.Fatalf("Failed to create a file: %s", err)
 	}
 
 	defer f.Close()
 
+	fmt.Println("Downloading the file ...")
+
 	if _, err := io.Copy(f, resp.Body); err != nil {
-		panic(err)
+		log.Fatalf("Failed to copy the response to a file: %s", err)
 	}
 }

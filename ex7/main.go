@@ -18,7 +18,7 @@ type User struct {
 }
 
 func (u User) String() string {
-	return fmt.Sprintf("%s:%d", u.Name, u.Id)
+	return fmt.Sprintf("%d. %s", u.Id, u.Name)
 }
 
 func getUser(s string) (User, error) {
@@ -62,7 +62,7 @@ func main() {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
-	f, err := os.Open("ex7/users.txt")
+	f, err := os.Open("files/users.txt")
 	if err != nil {
 		panic(err)
 	}

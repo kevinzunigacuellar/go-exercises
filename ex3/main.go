@@ -7,14 +7,13 @@ import (
 )
 
 func main() {
-	file, err := os.Open("ex3/test.txt")
-	defer file.Close()
-
+	// Read file using 100 byte buffer
+	file, err := os.Open("files/test.txt")
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Println("Reading a large file with 100 bytes buffer:")
+	defer file.Close()
 	// read file content
 	buf := make([]byte, 100)
 	for {

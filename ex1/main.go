@@ -17,7 +17,7 @@ type Problem struct {
 }
 
 func main() {
-	csvFileName := flag.String("file", "ex1/test.csv", "a file in csv format")
+	csvFileName := flag.String("file", "files/test.csv", "a file in csv format")
 	timeLimit := flag.Int("limit", 10, "the time limit for the quiz in seconds")
 	flag.Parse()
 
@@ -41,13 +41,13 @@ func main() {
 	timer := time.NewTimer(time.Duration(*timeLimit) * time.Second)
 	go readInput(answerCh)
 
+problemLoop:
 	for i, p := range problems {
 		fmt.Printf("Problem #%d: %s \n", i+1, p.Question)
 		select {
 		case <-timer.C:
 			fmt.Println("Time's up!")
-			fmt.Printf("You scored %d out of %d\n", correct, len(problems))
-			return
+			break problemLoop
 		case answer := <-answerCh:
 			if strings.TrimSpace(answer) == p.Answer {
 				correct++
